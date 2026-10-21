@@ -1,0 +1,29 @@
+[alias]
+	dump = "!f() { \t\tgit stash; \t\tgit stash drop; \t\t}; "
+	shleemypants = "!f() { git rebase -i HEAD~$1; }; f"
+	mrg = merge --no-commit --no-ff
+	fuckit = reset --hard
+	sup = submodule update --init --recursive
+	publish = !git push -u origin $(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
+	revert = checkout --
+	co = checkout
+	sw = checkout
+	ci = commit
+	amend = commit --amend
+	st = status
+	sts = status -s
+	br = branch
+	nb = checkout -b
+	mrg = merge --no-ff --no-commit --edit
+	com = checkout master
+	ff = merge --ff --no-commit
+	k = !exec gitk --all --date-order &
+	g = !exec git gui &
+	revert = checkout --
+	gl = log --graph --oneline --date-order --decorate=short
+	gla = log --graph --oneline --date-order --decorate=short --all
+	glw = log --graph --pretty=format:'%C(auto)%h %C(green)%cn %Cblue%cr%Creset%C(auto) %d%s%Creset' --date-order --decorate=short --all
+	exec = "!exec "
+	unstage = reset
+	deepfetch = "!find . -type d -name \".git\" -execdir git fetch \\;"
+	pending = "!f() {\n  find . -type d -name .git -print | while IFS= read -r gitdir; do\n    repo=\"${gitdir%/.git}\"\n    upstream=$(git -C \"$repo\" rev-parse --abbrev-ref --symbolic-full-name \"@{upstream}\" 2>/dev/null) || continue\n    counts=$(git -C \"$repo\" rev-list --left-right --count HEAD...\"$upstream\") || continue\n    read -r ahead behind <<< \"$counts\"\n    if [ \"$behind\" -gt 0 ]; then\n      printf \"%-45s %s behind\" \"$repo\" \"$behind\"\n      if [ \"$ahead\" -gt 0 ]; then\n        printf \" / %s ahead (DIVERGED)\" \"$ahead\"\n      fi\n      printf \"\\n\"\n    fi\n  done\n}; f"
