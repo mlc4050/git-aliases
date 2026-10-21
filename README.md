@@ -32,7 +32,7 @@ change history or discard work: inspect their definitions before using them.
 
 ## Aliases
 
-`amend`, `br`, `ci`, `co`, `com`, `deepfetch`, `dump`, `exec`, `fadd`, `ff`, `fuckit`, `g`, `gl`, `gla`, `glw`, `k`, `mrg`, `nb`, `pending`, `publish`, `revert`, `shleemypants`, `st`, `sts`, `sup`, `sw`, `unstage`.
+`amend`, `br`, `co`, `deepfetch`, `dump`, `fadd`, `ff`, `fuckit`, `g`, `gl`, `gla`, `glw`, `k`, `mrg`, `nb`, `pending`, `publish`, `revert`, `shleemypants`, `st`, `sts`, `sup`, `sw`, `unstage`.
 
 ## Stage files by part of their name
 
