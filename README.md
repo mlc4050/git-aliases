@@ -26,13 +26,13 @@ git config --get alias.st
 ```
 
 Use an alias as `git st`, `git co`, etc. The alias definitions are in
-[aliases.gitconfig](aliases.gitconfig). They are exported unchanged, including
-duplicate definitions, and have not been executed or repaired. Some commands
+[aliases.gitconfig](aliases.gitconfig). Existing aliases are exported unchanged, including duplicate definitions.
+The added `fadd` alias is tested separately. Some commands
 change history or discard work: inspect their definitions before using them.
 
 ## Aliases
 
-`amend`, `br`, `ci`, `co`, `com`, `deepfetch`, `dump`, `exec`, `ff`, `fuckit`, `g`, `gl`, `gla`, `glw`, `k`, `mrg`, `nb`, `pending`, `publish`, `revert`, `shleemypants`, `st`, `sts`, `sup`, `sw`, `unstage`.
+`amend`, `br`, `ci`, `co`, `com`, `deepfetch`, `dump`, `exec`, `fadd`, `ff`, `fuckit`, `g`, `gl`, `gla`, `glw`, `k`, `mrg`, `nb`, `pending`, `publish`, `revert`, `shleemypants`, `st`, `sts`, `sup`, `sw`, `unstage`.
 
 ## Stage files by part of their name
 
