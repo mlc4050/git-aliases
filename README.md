@@ -34,4 +34,16 @@ change history or discard work: inspect their definitions before using them.
 
 `amend`, `br`, `ci`, `co`, `com`, `deepfetch`, `dump`, `exec`, `ff`, `fuckit`, `g`, `gl`, `gla`, `glw`, `k`, `mrg`, `nb`, `pending`, `publish`, `revert`, `shleemypants`, `st`, `sts`, `sup`, `sw`, `unstage`.
 
-`fadd` was not configured when this export was created.
+## Stage files by part of their name
+
+```sh
+git fadd ccd
+```
+
+Stages changed, deleted, or untracked non-ignored files whose **filename** contains
+`ccd`, such as `releases/ccd_output_routine.vhd`. Prints each staged path.
+Matching is case-sensitive and treats the search text literally. All matching
+files are staged, with their entire changes; this does not select individual hunks.
+Existing staged changes are preserved. With no matches, nothing is staged.
+
+Requires Git Bash/Unix shell utilities (`sort` and a shell with `read -d`).
