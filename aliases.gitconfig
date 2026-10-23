@@ -1,10 +1,8 @@
 [alias]
-	dump = "!f() { \t\tgit stash; \t\tgit stash drop; \t\t}; "
 	shleemypants = "!f() { git rebase -i HEAD~$1; }; f"
 	mrg = merge --no-commit --no-ff
 	fuckit = reset --hard
 	sup = submodule update --init --recursive
-	publish = !git push -u origin $(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
 	revert = checkout --
 	co = checkout
 	sw = checkout

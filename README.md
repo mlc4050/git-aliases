@@ -46,8 +46,6 @@ Use every shortcut after `git`, as shown below.
 | **shleemypants** | `git shleemypants 3` | Start an interactive rebase of the last three commits. Rewrites history. |
 | **revert** | `git revert path/to/file` | Defined as checkout-from-index, which would discard unstaged file edits; however, Git's built-in `revert` takes precedence over this alias. See notes below. |
 | **fuckit** | `git fuckit` | Run `git reset --hard`, discarding staged and unstaged changes to tracked files. Does not generally clean untracked files. |
-| **dump** | `git dump` | Currently defines a stash/drop shell function but never calls it, so this exported definition performs no stash or deletion. |
-| **publish** | `git publish` | Intended to push the current branch to origin and set its upstream. The exported definition contains non-breaking spaces and needs correction before use. |
 
 ## Stage by part of a filename
 
@@ -77,8 +75,7 @@ identical `revert` definitions. For `mrg`, the last value is effective. Git alia
 do not replace built-in commands, so `git revert` still runs Git's real revert
 command, not the configured `checkout --` value.
 
-`dump` and `publish` have the issues documented above and have not been silently
-repaired. For publishing a branch directly, use:
+To push the current branch and set its upstream, use:
 
 ```sh
 git push -u origin HEAD
@@ -89,7 +86,7 @@ files. Git shell aliases start at the repository root, not necessarily the folde
 you invoked them from. They are not general parent-folder scanners outside a Git
 repository. `pending` lists behind/diverged repositories, not ahead-only ones.
 
-`exec`, `ci`, and `com` were intentionally removed from the export and this machine.
+`exec`, `ci`, `com`, `dump`, and `publish` were intentionally removed from the export and this machine.
 
 ## Inspect your installed aliases
 
