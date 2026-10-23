@@ -27,14 +27,12 @@ Use every shortcut after `git`, as shown below.
 | **st** | `git st` | Show working-tree and staging status. |
 | **sts** | `git sts` | Show compact status. |
 | **co** | `git co main` | Check out a branch or path using Git checkout. |
-| **sw** | `git sw main` | Another shortcut for checkout; this uses `checkout`, not Git's newer `switch` command. |
 | **br** | `git br` | List branches. Accepts branch options, such as `git br -a`. |
 | **nb** | `git nb feature-name` | Create a branch and check it out. |
 | **fadd** | `git fadd ccd` | Stage changed, deleted, or untracked files whose filename contains the literal text `ccd`. Prints each staged path. |
 | **unstage** | `git unstage path/to/file` | Remove changes from staging while keeping file edits. With no path, unstage everything. |
 | **amend** | `git amend` | Edit the latest commit, including staged changes. `git amend --no-edit` keeps its message. Rewrites that commit. |
 | **mrg** | `git mrg feature-name` | Merge with `--no-ff --no-commit --edit`, leaving the merge ready to review and commit. |
-| **ff** | `git ff feature-name` | Merge with `--ff --no-commit`. Allows fast-forwarding but does not require it. A fast-forward completes immediately; a merge commit is paused. |
 | **sup** | `git sup` | Initialize and update submodules recursively to the commits recorded by their parent repositories. |
 | **gl** | `git gl` | Show a compact, decorated commit graph for the current history. |
 | **gla** | `git gla` | Show the same graph across all refs. |
@@ -44,7 +42,6 @@ Use every shortcut after `git`, as shown below.
 | **deepfetch** | `git deepfetch` | Recursively find `.git` directories beneath the alias execution directory and fetch each repository. Does not merge updates. |
 | **pending** | `git pending` | Report repositories behind their configured upstream, including ahead counts when diverged. Uses existing remote-tracking refs; fetch first for fresh results. |
 | **shleemypants** | `git shleemypants 3` | Start an interactive rebase of the last three commits. Rewrites history. |
-| **revert** | `git revert path/to/file` | Defined as checkout-from-index, which would discard unstaged file edits; however, Git's built-in `revert` takes precedence over this alias. See notes below. |
 | **fuckit** | `git fuckit` | Run `git reset --hard`, discarding staged and unstaged changes to tracked files. Does not generally clean untracked files. |
 
 ## Stage by part of a filename
@@ -70,10 +67,7 @@ git unstage
 
 ## Export notes
 
-The original aliases are preserved, including two `mrg` definitions and two
-identical `revert` definitions. For `mrg`, the last value is effective. Git aliases
-do not replace built-in commands, so `git revert` still runs Git's real revert
-command, not the configured `checkout --` value.
+The `mrg` alias has one definition: `merge --no-ff --no-commit --edit`.
 
 To push the current branch and set its upstream, use:
 
@@ -86,7 +80,7 @@ files. Git shell aliases start at the repository root, not necessarily the folde
 you invoked them from. They are not general parent-folder scanners outside a Git
 repository. `pending` lists behind/diverged repositories, not ahead-only ones.
 
-`exec`, `ci`, `com`, `dump`, and `publish` were intentionally removed from the export and this machine.
+`exec`, `ci`, `com`, `dump`, `publish`, `revert`, `ff`, and `sw` were intentionally removed from the export and this machine.
 
 ## Inspect your installed aliases
 

@@ -1,21 +1,16 @@
 [alias]
 	shleemypants = "!f() { git rebase -i HEAD~$1; }; f"
-	mrg = merge --no-commit --no-ff
 	fuckit = reset --hard
 	sup = submodule update --init --recursive
-	revert = checkout --
 	co = checkout
-	sw = checkout
 	amend = commit --amend
 	st = status
 	sts = status -s
 	br = branch
 	nb = checkout -b
 	mrg = merge --no-ff --no-commit --edit
-	ff = merge --ff --no-commit
 	k = !exec gitk --all --date-order &
 	g = !exec git gui &
-	revert = checkout --
 	gl = log --graph --oneline --date-order --decorate=short
 	gla = log --graph --oneline --date-order --decorate=short --all
 	glw = log --graph --pretty=format:'%C(auto)%h %C(green)%cn %Cblue%cr%Creset%C(auto) %d%s%Creset' --date-order --decorate=short --all
