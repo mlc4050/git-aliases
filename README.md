@@ -41,7 +41,7 @@ Use every shortcut after `git`, as shown below.
 | **g** | `git g` | Launch Git GUI. |
 | **deepfetch** | `git deepfetch` | Recursively find `.git` directories beneath the alias execution directory and fetch each repository. Does not merge updates. |
 | **pending** | `git pending` | Report repositories behind their configured upstream, including ahead counts when diverged. Uses existing remote-tracking refs; fetch first for fresh results. |
-| **shleemypants** | `git shleemypants 3` | Start an interactive rebase of the last three commits. Rewrites history. |
+| **shleemypants** | `git shleemypants <count>` | Start an interactive rebase of the last `<count>` commits. Supply a positive number, for example `git shleemypants 5` for five commits. Rewrites history. |
 | **fuckit** | `git fuckit` | Run `git reset --hard`, discarding staged and unstaged changes to tracked files. Does not generally clean untracked files. |
 
 ## Stage by part of a filename
