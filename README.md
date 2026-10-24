@@ -31,7 +31,7 @@ Use every shortcut after `git`, as shown below.
 | **nb** | `git nb feature-name` | Create a branch and check it out. |
 | **fadd** | `git fadd ccd` | Stage changed, deleted, or untracked files whose filename contains the literal text `ccd`. Prints each staged path. |
 | **unstage** | `git unstage path/to/file` | Remove changes from staging while keeping file edits. With no path, unstage everything. |
-| **amend** | `git amend` | Edit the latest commit, including staged changes. `git amend --no-edit` keeps its message. Rewrites that commit. |
+| **amend** | `git amend` | Add staged changes to the latest commit while keeping its message. Use `git amend --edit` to open the message editor. Rewrites that commit. |
 | **mrg** | `git mrg feature-name` | Merge with `--no-ff --no-commit --edit`, leaving the merge ready to review and commit. |
 | **sup** | `git sup` | Initialize and update submodules recursively to the commits recorded by their parent repositories. |
 | **gl** | `git gl` | Show a compact, decorated commit graph for the current history. |

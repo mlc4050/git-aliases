@@ -3,7 +3,7 @@
 	fuckit = reset --hard
 	sup = submodule update --init --recursive
 	co = checkout
-	amend = commit --amend
+	amend = commit --amend --no-edit
 	st = status
 	sts = status -s
 	br = branch
