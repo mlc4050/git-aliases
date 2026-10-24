@@ -29,7 +29,7 @@ Use every shortcut after `git`, as shown below.
 | **co** | `git co main` | Check out a branch or path using Git checkout. |
 | **br** | `git br` | List branches. Accepts branch options, such as `git br -a`. |
 | **nb** | `git nb feature-name` | Create a branch and check it out. |
-| **fadd** | `git fadd ccd` | Stage changed, deleted, or untracked files whose filename contains the literal text `ccd`. Prints each staged path. |
+| **fadd** | `git fadd <text>` | Stage changed, deleted, or untracked files whose filename contains any substring you supply. Prints each staged path. |
 | **unstage** | `git unstage path/to/file` | Remove changes from staging while keeping file edits. With no path, unstage everything. |
 | **amend** | `git amend` | Add staged changes to the latest commit while keeping its message. Use `git amend --edit` to open the message editor. Rewrites that commit. |
 | **mrg** | `git mrg feature-name` | Merge with `--no-ff --no-commit --edit`, leaving the merge ready to review and commit. |
@@ -46,11 +46,19 @@ Use every shortcut after `git`, as shown below.
 
 ## Stage by part of a filename
 
+```sh
+git fadd <text>
+```
+
+Replace `<text>` with any part of a filename. There is nothing special about
+`ccd`; it is just one example:
+
 ```text
 git fadd ccd
 Staged: releases/ccd_output_routine.vhd
 ```
 
+Other examples are `git fadd routine`, `git fadd .vhd`, or `git fadd README`.
 Matching is case-sensitive and uses the filename, not its parent directories.
 Quote text containing spaces: `git fadd "output routine"`. All matching files
 are staged in full; this does not choose individual hunks. Ignored untracked files
