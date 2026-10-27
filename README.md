@@ -40,7 +40,7 @@ Use every shortcut after `git`, as shown below.
 | **k** | `git k` | Launch Gitk for all refs in date order. |
 | **g** | `git g` | Launch Git GUI. |
 | **deepfetch** | `git deepfetch` | Recursively find `.git` directories beneath the alias execution directory and fetch each repository. Does not merge updates. |
-| **pending** | `git pending` | Report repositories behind their upstream and flag detached checkouts or branches without an upstream. Skips linked worktrees unless passed `--worktrees`. Includes ahead counts when diverged; fetch first for fresh results. |
+| **pending** | `git pending` | Report repositories behind their upstream and flag detached checkouts or branches without an upstream. Skips linked worktrees unless passed `--worktrees`. Checks submodules against their parent pins. Includes ahead counts when diverged; fetch first for fresh results. |
 | **shleemypants** | `git shleemypants <count>` | Start an interactive rebase of the last `<count>` commits. Supply a positive number, for example `git shleemypants 5` for five commits. Rewrites history. |
 | **fuckit** | `git fuckit` | Run `git reset --hard`, discarding staged and unstaged changes to tracked files. Does not generally clean untracked files. |
 
@@ -101,6 +101,7 @@ Example output:
 ./Arcade-Seta_MiSTer       3 behind
 ./example                 0 behind [DETACHED; vs origin/main]
 ./another                 2 behind / 1 ahead (DIVERGED)
+./parent/modules/example  [SUBMODULE MISMATCH; expected 0123456789ab; actual abcdef012345]
 ```
 
 `DETACHED` means the checkout is at a commit rather than on a named branch.
@@ -110,16 +111,24 @@ comparison is informational; these commands do not attach branches or merge upda
 `deepfetch` discovers `.git` directories. `pending` also discovers worktree and
 submodule `.git` files. Linked worktrees are skipped by default so separate build
 copies do not clutter the report. Use `git pending --worktrees` to include them.
-Submodules are still checked. From a parent folder outside a repository, both scan
-beneath that folder; inside a repository, Git shell aliases start at its root.
 
-`pending` uses each checked-out branch's configured upstream. A detached checkout
-or branch without an upstream is always reported when included in the scan, even
+Initialized submodules are checked against the commit recorded in their immediate
+parent's index (the same pin used by `git sup`), including nested submodules.
+Matching submodules are omitted even when detached or behind their own upstream.
+A different checkout is reported as `SUBMODULE MISMATCH` with expected and actual
+commit IDs. A missing or conflicted parent pin is reported separately. Staging a
+new submodule pin changes the expected commit; checking remote branches does not.
+This checks commit selection, not uncommitted file edits or uninitialized modules.
+
+From a parent folder outside a repository, both scan beneath that folder; inside a repository, Git shell aliases start at its root.
+
+For other repositories, `pending` uses the checked-out branch's configured
+upstream. A detached checkout or branch without an upstream is always reported when included in the scan, even
 if up to date. For those, it compares against `origin/HEAD`, or `origin/main` /
 `origin/master` if exactly one exists. The output labels that fallback explicitly; it does not configure
 an upstream or change any checkout. If no unambiguous comparison exists, it
-reports that instead of silently skipping the repository. A submodule or build
-worktree may be intentionally detached.
+reports that instead of silently skipping the repository. Build worktrees may
+be intentionally detached.
 
 Normal branches that are only ahead are omitted. Results use the remote-tracking
 refs already on disk; run `git deepfetch` first for fresh results. Fetching alone
