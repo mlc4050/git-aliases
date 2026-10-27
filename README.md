@@ -40,7 +40,7 @@ Use every shortcut after `git`, as shown below.
 | **k** | `git k` | Launch Gitk for all refs in date order. |
 | **g** | `git g` | Launch Git GUI. |
 | **deepfetch** | `git deepfetch` | Recursively find `.git` directories beneath the alias execution directory and fetch each repository. Does not merge updates. |
-| **pending** | `git pending` | Report repositories behind their configured upstream, including ahead counts when diverged. Uses existing remote-tracking refs; fetch first for fresh results. |
+| **pending** | `git pending` | Report repositories behind their upstream and flag detached checkouts or branches without an upstream. Skips linked worktrees unless passed `--worktrees`. Includes ahead counts when diverged; fetch first for fresh results. |
 | **shleemypants** | `git shleemypants <count>` | Start an interactive rebase of the last `<count>` commits. Supply a positive number, for example `git shleemypants 5` for five commits. Rewrites history. |
 | **fuckit** | `git fuckit` | Run `git reset --hard`, discarding staged and unstaged changes to tracked files. Does not generally clean untracked files. |
 
@@ -83,12 +83,50 @@ To push the current branch and set its upstream, use:
 git push -u origin HEAD
 ```
 
-`deepfetch` and `pending` discover `.git` directories rather than worktree `.git`
-files. Git shell aliases start at the repository root, not necessarily the folder
-you invoked them from. They are not general parent-folder scanners outside a Git
-repository. `pending` lists behind/diverged repositories, not ahead-only ones.
-
 `exec`, `ci`, `com`, `dump`, `publish`, `revert`, `ff`, and `sw` were intentionally removed from the export and this machine.
+
+## Check for pending updates
+
+Run these from your parent repository folder, such as `D:/git`:
+
+```sh
+git deepfetch             # Refresh remote-tracking refs
+git pending               # Check repositories, skipping linked worktrees
+git pending --worktrees   # Include separate build/development worktrees
+```
+
+Example output:
+
+```text
+./Arcade-Seta_MiSTer       3 behind
+./example                 0 behind [DETACHED; vs origin/main]
+./another                 2 behind / 1 ahead (DIVERGED)
+```
+
+`DETACHED` means the checkout is at a commit rather than on a named branch.
+`NO UPSTREAM` means its branch has no configured tracking branch. The reported
+comparison is informational; these commands do not attach branches or merge updates.
+
+`deepfetch` discovers `.git` directories. `pending` also discovers worktree and
+submodule `.git` files. Linked worktrees are skipped by default so separate build
+copies do not clutter the report. Use `git pending --worktrees` to include them.
+Submodules are still checked. From a parent folder outside a repository, both scan
+beneath that folder; inside a repository, Git shell aliases start at its root.
+
+`pending` uses each checked-out branch's configured upstream. A detached checkout
+or branch without an upstream is always reported when included in the scan, even
+if up to date. For those, it compares against `origin/HEAD`, or `origin/main` /
+`origin/master` if exactly one exists. The output labels that fallback explicitly; it does not configure
+an upstream or change any checkout. If no unambiguous comparison exists, it
+reports that instead of silently skipping the repository. A submodule or build
+worktree may be intentionally detached.
+
+Normal branches that are only ahead are omitted. Results use the remote-tracking
+refs already on disk; run `git deepfetch` first for fresh results. Fetching alone
+does not update your checked-out files.
+
+To stay on a branch when updating, use `git switch main` (or `master`) followed
+by `git pull --ff-only`. `git checkout origin/main` detaches HEAD.
 
 ## Inspect your installed aliases
 
